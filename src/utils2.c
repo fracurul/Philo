@@ -1,5 +1,7 @@
 
-pthread_mutex_t *init_mutex(void)
+#include "philo.h"
+
+pthread_mutex_t	*init_mutex(void)
 {
 	pthread_mutex_t *mutex;
 
@@ -14,6 +16,30 @@ pthread_mutex_t *init_mutex(void)
 	return (mutex);
 }
 
+pthread_mutex_t	*init_threads(t_philo *philos, int n_philos)
+{
+	pthread_t	*threads;
+	int			i;
+
+	i = 0;
+	threads = (pthread_t	*)malloc(sizeof(pthread_t) * n_philos);
+	if(!threads)
+	{
+		printf("Error alocating memory for threads");
+		return ;
+	}
+	while(i < n_philos)
+	{
+		if(pthread_create(&threads[i], NULL, philo_routine, &philos[i]) != 0)
+		{
+			printf("Error creating philo thread")
+			return ;
+		}
+		i++;
+	}
+	return (threads);
+}
+
 void print_philo_state(int id, t_state, state, pthread_mutex_t *print_mutex)
 {
 	long timestamp;
@@ -24,9 +50,25 @@ void print_philo_state(int id, t_state, state, pthread_mutex_t *print_mutex)
 	pthread_mutex_unlock(print_mutex);
 }
 
-
-
-void philo_routine(void *arg)
+void philo_routine(t_philo philo)
 {
-	printf()
+	while(philo->meals_counter < philo->needed_meals)
+	{
+		pthread_mutex_lock(&philo->forks[philo->l_fork - 1]);
+		print_philo_state(philo->id, TAKEN_FORK, philo->print_mutex);
+		pthread_mutex_lock(&philo->forks[philo->r_fork - 1]);
+		print_philo_state(philo->id, TAKEN_FORK, philo->print_mutex);
+		philo->p_state = EATING;
+		print_philo_state(philo->id, EATING, philo->print_mutex);
+		usleep(get_time_ms(philo->e_time));
+		philo->meals_counter++;
+		pthread_mutex_unlock(&philo->forks[philo->l_fork - 1]);
+		pthread_mutex_unlock(&philo->forks[philo->r_fork - 1]);
+		philo->p_state = SLEEPING;
+		print_philo_state(philo->id, SLEEPING, philo->print_mutex);
+		usleep(get_time_ms(philo->s_time));
+		philo->p_state = THINKING;
+		print_philo_state(philo->id, THINKING, philo->print_mutex);
+	}
+	print_philo_state(philo->id, DIED, philo->print_mutex);
 }
