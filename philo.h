@@ -13,10 +13,10 @@ typedef struct s_data
 	int	time_to_die;
 	int	time_to_eat;
 	int	time_to_sleep;
-	int left_fork;
-	int right_fork;
+	int	left_fork;
+	int	right_fork;
 	t_state	state;
-}data;
+}t_data;
 
 typedef struct s_philo
 {
@@ -24,9 +24,13 @@ typedef struct s_philo
 	int	d_time;
 	int	e_time;
 	int s_time;
-}philo;
+	int	l_fork;
+	int	r_fork;
+	t_state	p_state;
+	pthread_mutex_t	*print_mutex;
+}t_philo;
 
-tydef enum e_state
+typedef enum e_state
 {
 	TAKEN_FORK,
 	EATING,
@@ -37,8 +41,8 @@ tydef enum e_state
 
 
 //Utils
-data	init_data(char **av);
-philo	*init_data_philo(data p_data);
+t_data	init_data(char **av);
+t_philo	*init_data_philo(data p_data, pthread_mutex_t *print_mutex);
 long	get_time_ms(void);
 char	*get_str_state(t_state state);
 
