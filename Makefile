@@ -79,7 +79,7 @@ $(ODIR)/%.o : src/%.c | $(ODIR)
 #########################################
 
 clean:
-	@$(MAKE) clean -s -C libft/
+	@$(MAKE) clean -s -C 
 	@$(CLEAN) $(OBJ)
 	@echo "files deleted"
 
@@ -88,7 +88,7 @@ clean:
 #########################################
 
 fclean: clean
-	@$(MAKE) fclean -s -C libft/
+	@$(MAKE) fclean -s -C 
 	@$(CLEAN) $(NAME) $(ODIR)
 	@echo "program deleted"
 
