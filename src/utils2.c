@@ -57,8 +57,10 @@ void	*philo_routine(t_philo *philo)
 	while(philo->meals_counter < philo->needed_meals)
 	{
 		pthread_mutex_lock(&philo->forks[philo->l_fork - 1]);
+		printf("philo numero: %d, coge el tenedor izq : %d\n", philo->id, philo->l_fork);
 		print_philo_state(philo->id, TAKEN_FORK, philo->print_mutex);
 		pthread_mutex_lock(&philo->forks[philo->r_fork - 1]);
+		printf("philo numero: %d, coge el tenedor drc: %d\n", philo->id, philo->r_fork);
 		print_philo_state(philo->id, TAKEN_FORK, philo->print_mutex);
 		philo->p_state = EATING;
 		print_philo_state(philo->id, EATING, philo->print_mutex);

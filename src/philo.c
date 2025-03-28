@@ -60,12 +60,14 @@ int	main(int ac, char **av)
 	int i = 0;
 	while (i < philo_data.number_of_philo)
 	{
+		printf("llega\n");
 		pthread_join(philo[i].thread, NULL);
 		i++;
 	}
 	i = 0;
 	while (i < philo_data.number_of_philo)
 	{
+		printf("llega1");
 		pthread_mutex_destroy(&forks[i]);
 		i++;
 	}
