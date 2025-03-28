@@ -1,4 +1,3 @@
-**************************************************************************** #
 
 ########################################
 #                LIB NAME               #
@@ -17,14 +16,15 @@ CC = gcc
 #########################################
 
 FLAGS = -Wall -Wextra -Werror
-UBUNTU_FLAGS = -g -Iinclude -lglfw -lm -ldl -pthread -fPIE
+
 SAN = -fsanitize=address -g3 -O3
 
 #########################################
 #           LIB FUNCTIONS               #
 #########################################
 
-SRC = src/atoi.c src/philo.c src/utils.c \
+SRC = src/atoi.c src/philo.c src/utils.c  src/utils2.c \
+
 
 #########################################
 #               OBJECTS                 #
@@ -79,7 +79,7 @@ $(ODIR)/%.o : src/%.c | $(ODIR)
 #########################################
 
 clean:
-	@$(MAKE) clean -s -C 
+	@$(MAKE) clean -s -C
 	@$(CLEAN) $(OBJ)
 	@echo "files deleted"
 
@@ -88,7 +88,7 @@ clean:
 #########################################
 
 fclean: clean
-	@$(MAKE) fclean -s -C 
+	@$(MAKE) fclean -s -C
 	@$(CLEAN) $(NAME) $(ODIR)
 	@echo "program deleted"
 

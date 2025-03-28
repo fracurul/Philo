@@ -1,7 +1,7 @@
 
-#include "philo.h"
+#include "../philo.h"
 
-int get_left_fork(int id, int total);
+int	get_left_fork(int id, int total);
 {
 	if(id == 1)
 		return (total);
@@ -23,17 +23,17 @@ pthread_mutex_t *init_forks(int philos)
 	int				i;
 
 	i = 0;
-	forks = (pthread_mutex_t *)malloc(sifeof(pthread_mutex_t) * philos);
+	forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * philos);
 	if(!forks)
 	{
 		printf("Error alocating memory for forks\n")
-	}	
+	}
 	while(i < philos)
 	{
 		if(pthread_mutex_init(&forks[i], NULL) != 0)
 		{
 			printf("Error initializating fork mutex at number: %d\n", i);
-			free_forks(forks);
+			free_forks(forks, i);
 		}
 		i++;
 	}
@@ -41,11 +41,11 @@ pthread_mutex_t *init_forks(int philos)
 }
 
 void free_forks(pthread_mutex_t *forks, int i)
-[
+{
 	int j;
 
 	j = 0;
 	while(j < i)
-		free(forks[j++]);
+		free(&forks[j++]);
 	free(forks);
-]
+}

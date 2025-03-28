@@ -1,56 +1,60 @@
 
-#include "philo.h"
+#include "../philo.h"
 
 pthread_mutex_t	*init_mutex(void)
 {
 	pthread_mutex_t *mutex;
 
-	mutex = (pthread_mutex_thread *)malloc(sizeof(pthread_mutex_t));
+	mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
 	if(mutex == NULL)
-		return(printf("Error alocating memory for mutex"));
+	{
+		printf("Error alocating memory for mutex");
+		return (NULL);
+	}
 	if(pthread_mutex_init(mutex, NULL) != 0)
 	{
 		free(mutex);
-		return(prinf("Error inicializating mutex"));
+		printf("Error inicializating mutex");
+		return (NULL);
 	}
 	return (mutex);
 }
 
-pthread_mutex_t	*init_threads(t_philo *philos, int n_philos)
+pthread_t	*init_threads(t_philo *philos, int n_philos)
 {
 	pthread_t	*threads;
 	int			i;
 
 	i = 0;
-	threads = (pthread_t	*)malloc(sizeof(pthread_t) * n_philos);
+	threads = (pthread_t *)malloc(sizeof(pthread_t) * n_philos);
 	if(!threads)
 	{
 		printf("Error alocating memory for threads");
-		return ;
+		return (NULL);
 	}
 	while(i < n_philos)
 	{
-		if(pthread_create(&threads[i], NULL, philo_routine, &philos[i]) != 0)
+		if(pthread_create(&threads[i], NULL, (void *)philo_routine, &philos[i]) != 0)
 		{
-			printf("Error creating philo thread")
-			return ;
+			printf("Error creating philo thread");
+			return (NULL);
 		}
 		i++;
 	}
 	return (threads);
 }
 
-void print_philo_state(int id, t_state, state, pthread_mutex_t *print_mutex)
+void print_philo_state(int id, t_state state, pthread_mutex_t *print_mutex)
 {
 	long timestamp;
 
 	timestamp = get_time_ms();
 	pthread_mutex_lock(print_mutex);
-	printf("%ld %d %s\n", timestamp, philo.id, get_str_state(state));
+	printf("%ld %d %s\n", timestamp, id, get_str_state(state));
 	pthread_mutex_unlock(print_mutex);
 }
 
-void philo_routine(t_philo philo)
+void	philo_routine(t_philo *philo)
 {
 	while(philo->meals_counter < philo->needed_meals)
 	{

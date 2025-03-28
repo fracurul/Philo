@@ -1,18 +1,19 @@
 
-#include "philo.h"
+#include "../philo.h"
 
 int	main(int ac, char **av)
 {
 	if(ac != 6)
 		printf("Error bad input");
 
-	pthread_mutex_t *print_mutex;
-	pthread_mutex_t *forks;
+	pthread_mutex_t	*print_mutex;
+	pthread_mutex_t	*forks;
 	t_philo			*philosopher;
 	t_data			philo_data;
-	
-	print_mutex = init_mutex;
-	forks =	init_fork(ft_atoi(av[1]));
+
+	print_mutex = init_mutex();
+	forks =	init_forks(ft_atoi(av[1]));
 	philo_data = init_data(av);
 	philosopher = init_data_philo(philo_data, print_mutex, forks);
+	philo_routine(philosopher);
 }

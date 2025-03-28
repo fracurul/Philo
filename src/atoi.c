@@ -1,4 +1,6 @@
 
+#include "../philo.h"
+
 int	ft_check_sign(const char *str, int *i)
 {
 	int	signo;

@@ -1,9 +1,9 @@
 
-#include "philo.h"
+#include "../philo.h"
 
-t_data init_data(char **av)
+t_data	init_data(char **av)
 {
-	t_data p_data;
+	t_data	p_data;
 
 	p_data.number_of_philo = ft_atoi(av[1]);
 	p_data.time_to_die = ft_atoi(av[2]);
@@ -14,13 +14,13 @@ t_data init_data(char **av)
 	return (p_data);
 }
 
-t_philo *init_data_philo(t_data p_data, pthread_mutex_t *print_mutex, pthread_mutex_t forks)
+t_philo	*init_data_philo(t_data p_data, pthread_mutex_t *print_mutex, pthread_mutex_t *forks)
 {
-	int i;
-	t_philo *philo;
+	int	i;
+	t_philo	*philo;
 
 	i = 0;
-	philo = (philo *)malloc(sizeof(t_philo) * p_data.number_of_philo);
+	philo = (t_philo *)malloc(sizeof(t_philo) * p_data.number_of_philo);
 	if(!philo)
 		printf("An error occured alocating memory for the philos");
 	while(i < p_data.number_of_philo)
@@ -41,19 +41,19 @@ t_philo *init_data_philo(t_data p_data, pthread_mutex_t *print_mutex, pthread_mu
 	return (philo);
 }
 
-long get_time_ms(void)
+long	get_time_ms(void)
 {
-	struct timeval time;
-	long val;
-	long time_ms;
+	struct timeval	time;
+	long	val;
+	long	time_ms;
 
 	val = 1000;
 	gettimeofday(&time, NULL);
-	time_ms = (time.time_sec * val) + (time.time_usec / val);
+	time_ms = (time.tv_sec * val) + (time.tv_usec / val);
 	return (time_ms);
 }
 
-char *get_str_state(t_state state)
+char	*get_str_state(t_state state)
 {
 	if(state == TAKEN_FORK)
 		return ("has taken a fork");
@@ -64,7 +64,7 @@ char *get_str_state(t_state state)
 	else if(state == THINKING)
 		return ("is thinking");
 	else if(state == DIED)
-		return ("died")
+		return ("died");
 	else
-		return ("invalid state")
+		return ("invalid state");
 }

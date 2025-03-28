@@ -1,11 +1,22 @@
-************************************************************************* */
+
 
 #ifndef PHILO_H
 # define PHILO_H
 #include <pthread.h>
+#include <sys/time.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+
+
+typedef enum s_state
+{
+	TAKEN_FORK,
+	EATING,
+	SLEEPING,
+	THINKING,
+	DIED,
+}t_state;
 
 typedef struct s_data
 {
@@ -34,34 +45,26 @@ typedef struct s_philo
 	pthread_mutex_t	*print_mutex;
 }t_philo;
 
-typedef enum e_state
-{
-	TAKEN_FORK,
-	EATING,
-	SLEEPING,
-	THINKING,
-	DIED,
-}t_state;
-
 
 //Utils
 t_data	init_data(char **av);
-t_philo	*init_data_philo(data p_data, pthread_mutex_t *print_mutex,  pthread_mutex_t *forks);
+t_philo	*init_data_philo(t_data p_data, pthread_mutex_t *print_mutex,  pthread_mutex_t *forks);
 long	get_time_ms(void);
 char	*get_str_state(t_state state);
 
 //Utils2
-pthread_mutex_t *init_mutex(void);
-void print_philo_state(int id, t_state, state, pthread_mutex_t *print_mutex);
-pthread_mutex_t	*init_threads(t_philo *philos, int n_philos);
-
+pthread_mutex_t	*init_mutex(void);
+void			print_philo_state(int id, t_state state, pthread_mutex_t *print_mutex);
+pthread_t		*init_threads(t_philo *philos, int n_philos);
+void			philo_routine(t_philo *philo);
 //Forks
 pthread_mutex_t *init_forks(int philos);
 int				get_right_fork(int id, int total);
+int				get_left_fork(int id, int total);
 void			free_forks(pthread_mutex_t *forks, int i);
 
 //pthread
-pthread_mutex_t	*inir_mutex(void);
+pthread_mutex_t	*init_mutex(void);
 pthread_mutex_t *init_forks(int philos);
 
 //Atoi
