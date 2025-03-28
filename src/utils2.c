@@ -20,31 +20,24 @@ pthread_mutex_t	*init_mutex(void)
 	return (mutex);
 }
 
-pthread_t	*init_threads(t_philo *philos, int n_philos)
+t_philo	*init_threads(t_philo *philo, int n_philos)
 {
-	pthread_t	*threads;
-	int			i;
+	int	i;
 
 	i = 0;
-	threads = (pthread_t *)malloc(sizeof(pthread_t) * n_philos);
-	if(!threads)
+	while (i < n_philos)
 	{
-		printf("Error alocating memory for threads");
-		return (NULL);
-	}
-	while(i < n_philos)
-	{
-		if(pthread_create(&threads[i], NULL, (void *)philo_routine, &philos[i]) != 0)
+		if(pthread_create(&philo[i].thread, NULL, (void *)philo_routine, &philo[i]) != 0)
 		{
 			printf("Error creating philo thread");
 			return (NULL);
 		}
 		i++;
 	}
-	return (threads);
+	return (philo);
 }
 
-void print_philo_state(int id, t_state state, pthread_mutex_t *print_mutex)
+void	print_philo_state(int id, t_state state, pthread_mutex_t *print_mutex)
 {
 	long timestamp;
 
@@ -56,7 +49,8 @@ void print_philo_state(int id, t_state state, pthread_mutex_t *print_mutex)
 
 void	philo_routine(t_philo *philo)
 {
-	while(philo->meals_counter < philo->needed_meals)
+	while(philo->meals_counter < philo->needed_meals || philo->last_meal > 
+		philo->d_time)
 	{
 		pthread_mutex_lock(&philo->forks[philo->l_fork - 1]);
 		print_philo_state(philo->id, TAKEN_FORK, philo->print_mutex);
@@ -64,13 +58,14 @@ void	philo_routine(t_philo *philo)
 		print_philo_state(philo->id, TAKEN_FORK, philo->print_mutex);
 		philo->p_state = EATING;
 		print_philo_state(philo->id, EATING, philo->print_mutex);
-		usleep(get_time_ms(philo->e_time));
+		usleep(get_philo_time(philo->e_time));
+		philo->last_meal = get_time_ms();
 		philo->meals_counter++;
 		pthread_mutex_unlock(&philo->forks[philo->l_fork - 1]);
 		pthread_mutex_unlock(&philo->forks[philo->r_fork - 1]);
 		philo->p_state = SLEEPING;
 		print_philo_state(philo->id, SLEEPING, philo->print_mutex);
-		usleep(get_time_ms(philo->s_time));
+		usleep(get_philo_time(philo->s_time));
 		philo->p_state = THINKING;
 		print_philo_state(philo->id, THINKING, philo->print_mutex);
 	}

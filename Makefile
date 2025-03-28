@@ -24,6 +24,7 @@ SAN = -fsanitize=address -g3 -O3
 #########################################
 
 SRC = src/atoi.c src/philo.c src/utils.c  src/utils2.c \
+	src/utils3.c src/forks.c \
 
 
 #########################################
@@ -72,7 +73,7 @@ $(ODIR) :
 #########################################
 
 $(ODIR)/%.o : src/%.c | $(ODIR)
-	$(CC) $(FLAGS) $(UBUNTU_FLAGS) -c $< -o $@
+	$(CC) $(FLAGS)  -c $< -o $@
 
 #########################################
 #              DELETE .o                #

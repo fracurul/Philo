@@ -31,6 +31,7 @@ t_philo	*init_data_philo(t_data p_data, pthread_mutex_t *print_mutex, pthread_mu
 		philo[i].s_time = p_data.time_to_sleep;
 		philo[i].needed_meals = p_data.meals;
 		philo[i].meals_counter = 0;
+		philo[i].last_meal = get_time_ms();
 		philo[i].l_fork = get_left_fork(philo[i].id, p_data.number_of_philo);
 		philo[i].r_fork = get_right_fork(philo[i].id, p_data.number_of_philo);
 		philo[i].p_state = THINKING;

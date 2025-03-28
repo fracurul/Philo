@@ -1,7 +1,7 @@
 
 #include "../philo.h"
 
-int	get_left_fork(int id, int total);
+int	get_left_fork(int id, int total)
 {
 	if(id == 1)
 		return (total);
@@ -9,7 +9,7 @@ int	get_left_fork(int id, int total);
 		return(id - 1);
 }
 
-int get_right_fork(int id, int total)
+int	get_right_fork(int id, int total)
 {
 	if(id == total)
 		return (0);
@@ -17,7 +17,7 @@ int get_right_fork(int id, int total)
 		return (id);
 }
 
-pthread_mutex_t *init_forks(int philos)
+pthread_mutex_t	*init_forks(int philos)
 {
 	pthread_mutex_t *forks;
 	int				i;
@@ -26,7 +26,8 @@ pthread_mutex_t *init_forks(int philos)
 	forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * philos);
 	if(!forks)
 	{
-		printf("Error alocating memory for forks\n")
+		printf("Error alocating memory for forks\n");
+		return (NULL);
 	}
 	while(i < philos)
 	{
@@ -34,13 +35,14 @@ pthread_mutex_t *init_forks(int philos)
 		{
 			printf("Error initializating fork mutex at number: %d\n", i);
 			free_forks(forks, i);
+			return (NULL);
 		}
 		i++;
 	}
 	return (forks);
 }
 
-void free_forks(pthread_mutex_t *forks, int i)
+void	free_forks(pthread_mutex_t *forks, int i)
 {
 	int j;
 
