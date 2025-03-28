@@ -26,9 +26,9 @@ t_philo	*init_data_philo(t_data p_data, pthread_mutex_t *print_mutex, pthread_mu
 	while(i < p_data.number_of_philo)
 	{
 		philo[i].id = i + 1;
-		philo[i].d_time = p_data.time_to_die;
-		philo[i].e_time = p_data.time_to_eat;
-		philo[i].s_time = p_data.time_to_sleep;
+		philo[i].d_time = get_philo_time(p_data.time_to_die);
+		philo[i].e_time = get_philo_time(p_data.time_to_eat);
+		philo[i].s_time = get_philo_time(p_data.time_to_sleep);
 		philo[i].needed_meals = p_data.meals;
 		philo[i].meals_counter = 0;
 		philo[i].last_meal = get_time_ms();
@@ -67,5 +67,5 @@ char	*get_str_state(t_state state)
 	else if(state == DIED)
 		return ("died");
 	else
-		return ("invalid state");
+		return ("NULL");
 }

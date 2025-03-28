@@ -30,9 +30,9 @@ typedef struct s_data
 typedef struct s_philo
 {
 	int	id;
-	int	d_time;
-	int	e_time;
-	int s_time;
+	long	d_time;
+	long	e_time;
+	long 	s_time;
 	int needed_meals;
 	int meals_counter;
 	long last_meal;
@@ -55,7 +55,7 @@ char	*get_str_state(t_state state);
 pthread_mutex_t	*init_mutex(void);
 void			print_philo_state(int id, t_state state, pthread_mutex_t *print_mutex);
 t_philo			*init_threads(t_philo *philos, int n_philos);
-void			philo_routine(t_philo *philo);
+void			*philo_routine(t_philo *philo);
 
 //Utils3
 long get_philo_time(int time);
