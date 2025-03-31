@@ -44,8 +44,6 @@ re : fclean all
 norm :
 	@echo "$(CYAN)Norminette src/$(GREEN)"
 	@norminette src/
-	@echo "$(CYAN)Norminette includes/$(GREEN)"
-	@norminette includes/
 	@echo "$(DEF_COLOR)"
 
 $(SANITIZE) : $(OBJ)
@@ -54,7 +52,7 @@ $(SANITIZE) : $(OBJ)
 
 
 $(SANITIZE_MEM) : $(OBJ)
-	@$(CC) $(CFLAGS) $(INCLUDES) $(FSANITIZE_MEM) $(OBJ) -o $(NAME)
+	@$(CC) $(CFLAGS) $(FSANITIZE_MEM) $(OBJ) -o $(NAME)
 	@echo "$(CYAN)Compiling philo with fsanitize ADDRESS$(DEF_COLOR)"
 # Colors
 

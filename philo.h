@@ -55,7 +55,7 @@ char	*get_str_state(t_state state);
 
 //Utils2
 pthread_mutex_t	*init_mutex(void);
-void			print_philo_state(int id, t_state state, pthread_mutex_t *print_mutex);
+void			print_philo_state(t_philo *philo, t_state state, pthread_mutex_t *print_mutex);
 t_philo			*init_threads(t_philo *philos, int n_philos);
 void			*philo_routine(t_philo *philo);
 
