@@ -10,7 +10,7 @@ t_data	init_data(char **av)
 	p_data.time_to_eat = ft_atoi(av[3]);
 	p_data.time_to_sleep = ft_atoi(av[4]);
 	p_data.meals = ft_atoi(av[5]);
-
+	p_data.start = get_time_ms();
 	return (p_data);
 }
 
@@ -32,13 +32,15 @@ t_philo	*init_data_philo(t_data p_data, pthread_mutex_t *print_mutex, pthread_mu
 		philo[i].needed_meals = p_data.meals;
 		philo[i].meals_counter = 0;
 		philo[i].last_meal = get_time_ms();
+		philo[i].start = p_data.start;
 		philo[i].l_fork = get_left_fork(philo[i].id, p_data.number_of_philo);
-		philo[i].r_fork = get_right_fork(philo[i].id, p_data.number_of_philo);
+		philo[i].r_fork = get_right_fork(philo[i].id);
 		philo[i].p_state = THINKING;
 		philo[i].forks = forks;
 		philo[i].print_mutex = print_mutex;
 		i++;
 	}
+
 	return (philo);
 }
 

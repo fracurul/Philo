@@ -1,101 +1,69 @@
+NAME := philo
 
-########################################
-#                LIB NAME               #
-#########################################
+CC := gcc
 
-NAME = philo
+CFLAGS := -Wall -Werror -Wextra
 
-#########################################
-#              COMPILATOR               #
-#########################################
 
-CC = gcc
+SANITIZE := sanitize
+SANITIZE_MEM := sanitize_mem
 
-#########################################
-#           COMPILATOR FLAGS            #
-#########################################
+FSANITIZE := -fsanitize=thread -g3
+FSANITIZE_MEM := -fsanitize=address -g
+OBJDIR := obj
 
-FLAGS = -Wall -Wextra -Werror
-SAN = -fsanitize=address -g3 -O3
-
-#########################################
-#           LIB FUNCTIONS               #
-#########################################
 
 SRC = src/atoi.c src/philo.c src/utils.c  src/utils2.c \
 	src/utils3.c src/forks.c \
 
+all : $(NAME)
 
-#########################################
-#               OBJECTS                 #
-#########################################
 
-OBJ = $(patsubst src/%.c, $(ODIR)/%.o, $(SRC))
+OBJ = $(patsubst src/%.c, $(OBJDIR)/%.o, $(SRC))
 
-#########################################
-#               OBJECTS                 #
-#########################################
+$(OBJDIR)/%.o : src/%.c
+	@mkdir -p $(@D)
+	@$(CC) $(CFLAGS) -c $< -o $@
 
-ODIR := odir
+$(NAME) : $(OBJ)
+	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+	@echo "$(GREEN)PHILO COMPILED$(DEF_COLOR)"
 
-#########################################
-#            CLEAN FUNCTION             #
-#########################################
+clean :
+	@echo "$(YELLOW)Deleting all object files....$(DEF_COLOR)"
+	@rm -rf $(OBJDIR)
+	@echo "$(RED)All object files were deleteated...$(DEF_COLOR)"
 
-CLEAN = rm -rf
+fclean : clean
+	@echo "$(YELLOW)Deleting executable files....$(DEF_COLOR)"
+	@rm -f $(NAME)
+	@echo "$(RED)All executable files has been deleted.$(DEF_COLOR)"
 
-#########################################
-#              COMPILE ALL              #
-#########################################
+re : fclean all
 
-all: $(NAME)
+norm :
+	@echo "$(CYAN)Norminette src/$(GREEN)"
+	@norminette src/
+	@echo "$(CYAN)Norminette includes/$(GREEN)"
+	@norminette includes/
+	@echo "$(DEF_COLOR)"
 
-#########################################
-#         COMPILE PHILOSOPHER           #
-#########################################
+$(SANITIZE) : $(OBJ)
+	@$(CC) $(CFLAGS) $(FSANITIZE) $(OBJ) -o $(NAME)
+	@echo "$(CYAN)Compiling philo with fsanitize$(DEF_COLOR)"
 
-$(NAME): $(OBJ)
-	@echo "#########################################"
-	@echo "#          Compiling Philo...           #"
-	@echo "#########################################"
-	@$(CC) $(FLAGS) $^ -o $@
 
-#########################################
-#                 MKDIR                 #
-#########################################
+$(SANITIZE_MEM) : $(OBJ)
+	@$(CC) $(CFLAGS) $(INCLUDES) $(FSANITIZE_MEM) $(OBJ) -o $(NAME)
+	@echo "$(CYAN)Compiling philo with fsanitize ADDRESS$(DEF_COLOR)"
+# Colors
 
-$(ODIR) :
-	@mkdir -p $(ODIR)
-
-#########################################
-#           COMPILE .c to .o            #
-#########################################
-
-$(ODIR)/%.o : src/%.c | $(ODIR)
-	$(CC) $(FLAGS) -c $< -o $@
-
-#########################################
-#              DELETE .o                #
-#########################################
-
-clean:
-	@$(MAKE) clean -s -C
-	@$(CLEAN) $(OBJ)
-	@echo "files deleted"
-
-#########################################
-#              DELETE ALL               #
-#########################################
-
-fclean: clean
-	@$(MAKE) fclean -s -C
-	@$(CLEAN) $(NAME) $(ODIR)
-	@echo "program deleted"
-
-#########################################
-#         DELETE ALL & REMAKE           #
-#########################################
-
-re: fclean all
-
-.PHONY: all re clean fclean
+DEF_COLOR = \033[0;39m
+GRAY = \033[0;90m
+RED = \033[0;91m
+GREEN = \033[0;92m
+YELLOW = \033[0;93m
+BLUE = \033[0;94m
+MAGENTA = \033[0;95m
+CYAN = \033[0;96m
+WHITE = \033[0;97m

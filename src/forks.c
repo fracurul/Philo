@@ -9,12 +9,9 @@ int	get_left_fork(int id, int total)
 		return(id - 1);
 }
 
-int	get_right_fork(int id, int total)
+int	get_right_fork(int id)
 {
-	if(id == total)
-		return (1);
-	else
-		return (id - 1);
+		return (id);
 }
 
 pthread_mutex_t	*init_forks(int philos)

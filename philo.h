@@ -20,26 +20,28 @@ typedef enum s_state
 
 typedef struct s_data
 {
-	int	number_of_philo;
-	int	time_to_die;
-	int	time_to_eat;
-	int	time_to_sleep;
-	int meals;
+	int		number_of_philo;
+	int		time_to_die;
+	int		time_to_eat;
+	int		time_to_sleep;
+	int		meals;
+	long	start;
 }t_data;
 
 typedef struct s_philo
 {
-	int	id;
-	long	d_time;
-	long	e_time;
-	long 	s_time;
-	int needed_meals;
-	int meals_counter;
-	long last_meal;
-	int	l_fork;
-	int	r_fork;
-	t_state	p_state;
-	pthread_t	thread;
+	int				id;
+	long			d_time;
+	long			e_time;
+	long 			s_time;
+	int				needed_meals;
+	int				meals_counter;
+	long			last_meal;
+	long			start;
+	int				l_fork;
+	int				r_fork;
+	t_state			p_state;
+	pthread_t		thread;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	*print_mutex;
 }t_philo;
@@ -62,7 +64,7 @@ long get_philo_time(int time);
 
 //Forks
 pthread_mutex_t *init_forks(int philos);
-int				get_right_fork(int id, int total);
+int				get_right_fork(int id);
 int				get_left_fork(int id, int total);
 void			free_forks(pthread_mutex_t *forks, int i);
 
