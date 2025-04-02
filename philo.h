@@ -25,6 +25,7 @@ typedef struct s_data
 	int		time_to_eat;
 	int		time_to_sleep;
 	int		meals;
+	int		died;
 	long	start;
 }t_data;
 
@@ -40,15 +41,17 @@ typedef struct s_philo
 	long			start;
 	int				l_fork;
 	int				r_fork;
+	int				*died;
 	t_state			p_state;
 	pthread_t		thread;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	*print_mutex;
+	t_data			*data;
 }t_philo;
 
 
 //Utils
-t_data	init_data(char **av);
+t_data	init_data(int ac, char **av);
 t_philo	*init_data_philo(t_data p_data, pthread_mutex_t *print_mutex,  pthread_mutex_t *forks);
 long	get_time_ms(void);
 char	*get_str_state(t_state state);
@@ -56,11 +59,8 @@ char	*get_str_state(t_state state);
 //Utils2
 pthread_mutex_t	*init_mutex(void);
 void			print_philo_state(t_philo *philo, t_state state, pthread_mutex_t *print_mutex);
-t_philo			*init_threads(t_philo *philos, int n_philos);
+void			init_threads(t_philo *philos, int n_philos);
 void			*philo_routine(t_philo *philo);
-
-//Utils3
-long get_philo_time(int time);
 
 //Forks
 pthread_mutex_t *init_forks(int philos);

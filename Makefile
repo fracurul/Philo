@@ -14,7 +14,7 @@ OBJDIR := obj
 
 
 SRC = src/atoi.c src/philo.c src/utils.c  src/utils2.c \
-	src/utils3.c src/forks.c \
+	src/forks.c \
 
 all : $(NAME)
 

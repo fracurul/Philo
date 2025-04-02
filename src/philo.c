@@ -20,7 +20,7 @@
 
 int	main(int ac, char **av)
 {
-	if (ac != 6 || ft_atoi(av[1]) <= 1)
+	if (ac <= 4 || ac > 6 )
 	{
 		printf("Error bad input");
 		return (0);
@@ -32,13 +32,14 @@ int	main(int ac, char **av)
 
 	print_mutex = init_mutex();
 	forks = init_forks(ft_atoi(av[1]));
-	philo_data = init_data(av);
+	philo_data = init_data(ac, av);
 	/*printf("numero de filos: %d\n", philo_data.number_of_philo);
 	printf("time to die: %d\n", philo_data.time_to_die);
 	printf("time to eat: %d\n", philo_data.time_to_eat);
 	printf("time to sleep: %d\n", philo_data.time_to_sleep);*/
 
 	philo = init_data_philo(philo_data, print_mutex, forks);
+	printf("philo.died in main: %d\n", philo->data->died);
 	/*printf("filosofo: %d\n", philo->id);
 	printf("time to die: %d\n", philo->d_time);
 	printf("time to eat: %d\n", philo->e_time);
@@ -48,7 +49,7 @@ int	main(int ac, char **av)
 	printf("last meal: %ld\n", philo->last_meal);
 	printf("estado: %s\n", get_str_state(philo->p_state));*/
 
-	philo = init_threads(philo, philo_data.number_of_philo);
+	init_threads(philo, philo_data.number_of_philo);
 	if(get_str_state(philo->p_state) == NULL)
 	{
 		printf("Philo state error");

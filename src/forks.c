@@ -16,7 +16,7 @@ int	get_right_fork(int id)
 
 pthread_mutex_t	*init_forks(int philos)
 {
-	pthread_mutex_t *forks;
+	pthread_mutex_t	*forks;
 	int				i;
 
 	i = 0;
