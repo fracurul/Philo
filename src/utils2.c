@@ -25,8 +25,8 @@ void init_threads(t_philo *philo, int n_philos)
 	int	i;
 
 	i = 0;
-	philo->data->died = 0;
-	printf("philo.died after: %d\n", philo->data->died);
+	*philo->died = 0;
+	printf("philo.died after: %d\n", *philo->died);
 	while (i < n_philos)
 	{
 		if(pthread_create(&philo[i].thread, NULL, (void *)philo_routine, &philo[i]) != 0)
@@ -61,7 +61,6 @@ void	*philo_routine(t_philo *philo)
 	}
 	if(philo->id % 2 == 0)
 		usleep(100);
-	printf("%d\n", philo->data->died);
 	while(*philo->died == 0 && philo->meals_counter < philo->needed_meals)
 	{
 		pthread_mutex_lock(philo->print_mutex);
@@ -75,10 +74,10 @@ void	*philo_routine(t_philo *philo)
 		print_philo_state(philo, TAKEN_FORK, philo->print_mutex);
 		philo->p_state = EATING;
 		print_philo_state(philo, EATING, philo->print_mutex);
-		usleep(philo->e_time);
-		philo->last_meal = (get_time_ms() - philo->last_meal);
+		usleep(philo->e_time * 1000);
+		philo->last_meal = get_time_ms();
 		pthread_mutex_lock(philo->print_mutex);
-		printf("id philo: %d ultima comida: %ld\n", philo->id, philo->last_meal);
+		printf("id philo: %d ultima comida: %ld\n", philo->id,  philo->last_meal);
 		printf("id philo: %d tiempo de muerte: %ld\n", philo->id, philo->d_time);
 		pthread_mutex_unlock(philo->print_mutex);
 		philo->meals_counter++;
@@ -90,7 +89,7 @@ void	*philo_routine(t_philo *philo)
 		pthread_mutex_unlock(&philo->forks[philo->r_fork - 1]);
 		philo->p_state = SLEEPING;
 		print_philo_state(philo, SLEEPING, philo->print_mutex);
-		usleep(philo->s_time);
+		usleep(philo->s_time * 1000);
 		philo->p_state = THINKING;
 		print_philo_state(philo, THINKING, philo->print_mutex);
 	}

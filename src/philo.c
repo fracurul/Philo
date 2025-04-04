@@ -28,7 +28,7 @@ int	main(int ac, char **av)
 	pthread_mutex_t	*print_mutex;
 	pthread_mutex_t	*forks;
 	t_philo			*philo;
-	t_data			philo_data;
+	t_data			*philo_data;
 
 	print_mutex = init_mutex();
 	forks = init_forks(ft_atoi(av[1]));
@@ -39,7 +39,7 @@ int	main(int ac, char **av)
 	printf("time to sleep: %d\n", philo_data.time_to_sleep);*/
 
 	philo = init_data_philo(philo_data, print_mutex, forks);
-	printf("philo.died in main: %d\n", philo->data->died);
+	printf("philo.died in main: %d\n", *philo->died);
 	/*printf("filosofo: %d\n", philo->id);
 	printf("time to die: %d\n", philo->d_time);
 	printf("time to eat: %d\n", philo->e_time);
@@ -49,7 +49,7 @@ int	main(int ac, char **av)
 	printf("last meal: %ld\n", philo->last_meal);
 	printf("estado: %s\n", get_str_state(philo->p_state));*/
 
-	init_threads(philo, philo_data.number_of_philo);
+	init_threads(philo, philo_data->number_of_philo);
 	if(get_str_state(philo->p_state) == NULL)
 	{
 		printf("Philo state error");
@@ -59,14 +59,14 @@ int	main(int ac, char **av)
 		printf("error at threads");
 	}
 	int i = 0;
-	while (i < philo_data.number_of_philo)
+	while (i < philo_data->number_of_philo)
 	{
 		printf("llega\n");
 		pthread_join(philo[i].thread, NULL);
 		i++;
 	}
 	i = 0;
-	while (i < philo_data.number_of_philo)
+	while (i < philo_data->number_of_philo)
 	{
 		printf("llega1");
 		pthread_mutex_destroy(&forks[i]);

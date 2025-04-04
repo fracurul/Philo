@@ -46,13 +46,12 @@ typedef struct s_philo
 	pthread_t		thread;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	*print_mutex;
-	t_data			*data;
 }t_philo;
 
 
 //Utils
-t_data	init_data(int ac, char **av);
-t_philo	*init_data_philo(t_data p_data, pthread_mutex_t *print_mutex,  pthread_mutex_t *forks);
+t_data	*init_data(int ac, char **av);
+t_philo	*init_data_philo(t_data *p_data, pthread_mutex_t *print_mutex,  pthread_mutex_t *forks);
 long	get_time_ms(void);
 char	*get_str_state(t_state state);
 
