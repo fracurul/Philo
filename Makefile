@@ -13,8 +13,8 @@ FSANITIZE_MEM := -fsanitize=address -g
 OBJDIR := obj
 
 
-SRC = src/atoi.c src/philo.c src/utils.c  src/utils2.c src/utils3.c \
-	src/forks.c \
+SRC = src/atoi.c src/forks.c src/performing.c src/philo.c \
+	 src/utils.c src/utils2.c src/utils3.c \
 
 all : $(NAME)
 
@@ -37,6 +37,7 @@ clean :
 fclean : clean
 	@echo "$(YELLOW)Deleting executable files....$(DEF_COLOR)"
 	@rm -f $(NAME)
+	@rm -rf odir
 	@echo "$(RED)All executable files has been deleted.$(DEF_COLOR)"
 
 re : fclean all

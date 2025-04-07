@@ -64,6 +64,14 @@ void			*philo_routine(t_philo *philo);
 //Utils3
 void	sleep_check(long total_ms, long interval, int *died);
 int		death_check(t_philo *philo);
+void	release_forks(t_philo *philo);
+
+//Performing
+int	taking_forks(t_philo *philo);
+int	philo_eating(t_philo *philo);
+int	philo_sleeping(t_philo *philo);
+int	philo_thinking(t_philo *philo);
+
 //Forks
 pthread_mutex_t *init_forks(int philos);
 int				get_right_fork(int id);

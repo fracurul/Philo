@@ -54,37 +54,19 @@ void	*philo_routine(t_philo *philo)
 	while(*philo->died == 0 && philo->meals_counter < philo->needed_meals)
 	{
 		if(!death_check(philo) || *philo->died)
-			return(NULL);
-		pthread_mutex_lock(&philo->forks[philo->l_fork - 1]);
-		printf("philo numero: %d, coge el tenedor izq : %d\n", philo->id, philo->l_fork);
-		print_philo_state(philo, TAKEN_FORK, philo->print_mutex);
-		pthread_mutex_lock(&philo->forks[philo->r_fork - 1]);
-		printf("philo numero: %d, coge el tenedor drc: %d\n", philo->id, philo->r_fork);
-		print_philo_state(philo, TAKEN_FORK, philo->print_mutex);
-		if(!death_check(philo) || *philo->died)
 			return (NULL);
-		philo->p_state = EATING;
-		print_philo_state(philo, EATING, philo->print_mutex);
-		sleep_check(philo->e_time, 10, philo->died);
-		philo->last_meal = get_time_ms();
-		if(!death_check(philo) || *philo->died)
+		if(!taking_forks(philo))
 			return (NULL);
-		philo->meals_counter++;
-		pthread_mutex_lock(philo->print_mutex);
-		printf("comidas: %d\n", philo->meals_counter);
-		printf("comidas necesitadas %d\n", philo->needed_meals);
-		pthread_mutex_unlock(philo->print_mutex);
-		pthread_mutex_unlock(&philo->forks[philo->l_fork - 1]);
-		pthread_mutex_unlock(&philo->forks[philo->r_fork - 1]);
-		if(!death_check(philo) || *philo->died)
+		if(!philo_eating(philo))
+		{
+			release_forks(philo);
 			return (NULL);
-		philo->p_state = SLEEPING;
-		print_philo_state(philo, SLEEPING, philo->print_mutex);
-		sleep_check(philo->s_time, 10, philo->died);
-		if(!death_check(philo) || *philo->died)
+		}
+		release_forks(philo);
+		if(!philo_sleeping(philo))
 			return (NULL);
-		philo->p_state = THINKING;
-		print_philo_state(philo, THINKING, philo->print_mutex);
+		if(!philo_thinking(philo))
+			return (NULL);
 	}
 	return (NULL);
 }
