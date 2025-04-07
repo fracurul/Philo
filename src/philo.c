@@ -26,17 +26,19 @@ int	main(int ac, char **av)
 	{
 		printf("error at threads");
 	}
+	int i = 0;
 	while(1)
 	{
 		if(*philo[0].died == 1)
-			exit(EXIT_FAILURE);
+		{
+			while (i < philo_data->number_of_philo)
+			{
+				pthread_join(philo[i].thread, NULL);
+				i++;
+			}
+			break ;
+		}	
 		usleep (1000);
-	}
-	int i = 0;
-	while (i < philo_data->number_of_philo)
-	{
-		pthread_join(philo[i].thread, NULL);
-		i++;
 	}
 	i = 0;
 	while (i < philo_data->number_of_philo)
