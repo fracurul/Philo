@@ -41,8 +41,15 @@ void	print_philo_state(t_philo *philo, t_state state, pthread_mutex_t *print_mut
 {
 	long timestamp;
 
+	if(!death_check(philo) || *philo->died)
+		return ;
 	timestamp = get_time_ms() - philo->start;
 	pthread_mutex_lock(print_mutex);
+	if(!death_check(philo) || *philo->died)
+	{
+		pthread_mutex_unlock(print_mutex);
+		return ;
+	}
 	printf("%ld %d %s\n", timestamp, philo->id, get_str_state(state));
 	pthread_mutex_unlock(print_mutex);
 }

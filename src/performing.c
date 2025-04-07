@@ -13,7 +13,7 @@ int	taking_forks(t_philo *philo)
 		return (0);
 	}
 	pthread_mutex_lock(&philo->forks[philo->r_fork - 1]);
-	//print_philo_state(philo, TAKEN_FORK, philo->print_mutex);
+	print_philo_state(philo, TAKEN_FORK, philo->print_mutex);
 	if(!death_check(philo) || *philo->died)
 	{
 		release_forks(philo);
