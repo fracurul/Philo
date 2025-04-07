@@ -61,6 +61,9 @@ void			print_philo_state(t_philo *philo, t_state state, pthread_mutex_t *print_m
 void			init_threads(t_philo *philos, int n_philos);
 void			*philo_routine(t_philo *philo);
 
+//Utils3
+void	sleep_check(long total_ms, long interval, int *died);
+int		death_check(t_philo *philo);
 //Forks
 pthread_mutex_t *init_forks(int philos);
 int				get_right_fork(int id);
