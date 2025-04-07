@@ -1,35 +1,41 @@
 
 #include "../philo.h"
 
-int	ft_check_sign(const char *str, int *i)
+int	validate_args(int ac, char **av)
 {
-	int	signo;
+	int i;
+	int j;
 
-	signo = 1;
-	if (str[*i] == '-' || str[*i] == '+')
+	i = 1;
+	while(i < ac)
 	{
-		if (str[*i] == '-')
-			signo *= -1;
-		*i += 1;
+		j = 0;
+		while(av[i][j] != '\0')
+		{
+			if(av[i][j] < '0' || av[i][j] > '9')
+			{
+				printf("Error: arg '%s' is not a valid positive number\n", av[i]);
+				return (0);
+			}
+			j++;
+		}
+		i++;
 	}
-	return (signo);
+	return (1);
 }
 
 int	ft_atoi(const char *str)
 {
 	int	i;
 	int	resultado;
-	int	signo;
 
 	i = 0;
 	resultado = 0;
-	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
-		i++;
-	signo = ft_check_sign(str, &i);
-	while (str[i] && (str[i] >= '0' && str[i] <= '9'))
+
+	while (str[i])
 	{
 		resultado = resultado * 10 + (str[i] - '0');
 		i++;
 	}
-	return (resultado * signo);
+	return (resultado);
 }

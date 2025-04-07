@@ -83,7 +83,7 @@ pthread_mutex_t	*init_mutex(void);
 pthread_mutex_t *init_forks(int philos);
 
 //Atoi
-int	ft_check_sign(const char *str, int *i);
+int	validate_args(int ac, char **av);
 int	ft_atoi(const char *str);
 
 #endif

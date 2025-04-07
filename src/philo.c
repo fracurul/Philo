@@ -3,7 +3,7 @@
 
 int	main(int ac, char **av)
 {
-	if (ac <= 4 || ac > 6 )
+	if (ac <= 4 || ac > 6  || !validate_args(ac, av))
 	{
 		printf("Error bad input");
 		return (0);
