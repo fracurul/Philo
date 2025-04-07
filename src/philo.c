@@ -29,7 +29,7 @@ int	main(int ac, char **av)
 	while(1)
 	{
 		if(*philo[0].died == 1)
-			break;
+			exit(EXIT_FAILURE);
 		usleep (1000);
 	}
 	int i = 0;

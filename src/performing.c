@@ -16,8 +16,7 @@ int	taking_forks(t_philo *philo)
 	//print_philo_state(philo, TAKEN_FORK, philo->print_mutex);
 	if(!death_check(philo) || *philo->died)
 	{
-		pthread_mutex_unlock(&philo->forks[philo->l_fork - 1]);
-		pthread_mutex_unlock(&philo->forks[philo->r_fork - 1]);
+		release_forks(philo);
 		return (0);
 	}
 	return (1);
