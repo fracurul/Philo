@@ -50,10 +50,10 @@ typedef struct s_philo
 
 
 //Utils
-t_data	*init_data(int ac, char **av);
-t_philo	*init_data_philo(t_data *p_data, pthread_mutex_t *print_mutex,  pthread_mutex_t *forks);
-long	get_time_ms(void);
-char	*get_str_state(t_state state);
+t_data			*init_data(int ac, char **av);
+t_philo			*init_data_philo(t_data *p_data, pthread_mutex_t *print_mutex,  pthread_mutex_t *forks);
+long			get_time_ms(void);
+char			*get_str_state(t_state state);
 
 //Utils2
 pthread_mutex_t	*init_mutex(void);
@@ -62,28 +62,28 @@ void			init_threads(t_philo *philos, int n_philos);
 void			*philo_routine(t_philo *philo);
 
 //Utils3
-void	sleep_check(long total_ms, long interval, int *died);
-int		death_check(t_philo *philo);
-void	release_forks(t_philo *philo);
+void			sleep_check(long total_ms, int *died);
+int				death_check(t_philo *philo);
+void			release_forks(t_philo *philo);
 
 //Performing
-int	taking_forks(t_philo *philo);
-int	philo_eating(t_philo *philo);
-int	philo_sleeping(t_philo *philo);
-int	philo_thinking(t_philo *philo);
+int				taking_forks(t_philo *philo);
+int				philo_eating(t_philo *philo);
+int				philo_sleeping(t_philo *philo);
+int				philo_thinking(t_philo *philo);
 
 //Forks
-pthread_mutex_t *init_forks(int philos);
+pthread_mutex_t	*init_forks(int philos);
 int				get_right_fork(int id);
 int				get_left_fork(int id, int total);
 void			free_forks(pthread_mutex_t *forks, int i);
 
 //pthread
 pthread_mutex_t	*init_mutex(void);
-pthread_mutex_t *init_forks(int philos);
+pthread_mutex_t	*init_forks(int philos);
 
 //Atoi
-int	validate_args(int ac, char **av);
-int	ft_atoi(const char *str);
+int				validate_args(int ac, char **av);
+int				ft_atoi(const char *str);
 
 #endif

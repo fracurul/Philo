@@ -1,19 +1,12 @@
 
 #include "../philo.h"
 
-void	sleep_check(long total_ms, long interval, int *died)
+void	sleep_check(long total_ms, int *died)
 {
-	// interval = 1;
-	// long	slept;
-	(void)interval;
-
-	// slept = 0;
 	long start = get_time_ms();
 	while((get_time_ms() - start) < total_ms && *died == 0)
 	{
-		// usleep(interval * 1000);
 		usleep(500);
-		// slept += interval;
 	}
 }
 
@@ -41,4 +34,14 @@ void	release_forks(t_philo *philo)
 {
 	pthread_mutex_unlock(&philo->forks[philo->l_fork - 1]);
 	pthread_mutex_unlock(&philo->forks[philo->r_fork - 1]);
+}
+
+void	*onephilo_routine(t_philo *philo)
+{
+	if(take_fork(philo))
+		return(NULL);
+	usleep(philo->d_time * 1000);
+	philo->p_state = DIED;
+	one_philo_state(philo, )
+
 }
