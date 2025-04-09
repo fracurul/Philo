@@ -1,5 +1,6 @@
 # Philo
 
-Tengo que controlar el tiempo que pasa entre que el filosofo come, y vuelve a comer si pasa "X" tiempo sin comer muere
+1 saliirse cuando coman x veces que esta comprobado pero el hilo principal no se sale
 
-separar las rutinas por filosofos pares y impares
+2rutina especifica para 1 solo philo
+debe coger tenedor derecho(el unico disponible) esperar tiempo de muerte, imprimir muerte y salir.

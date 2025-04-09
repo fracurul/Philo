@@ -28,7 +28,7 @@ int	philo_eating(t_philo *philo)
 		return (0);
 	philo->p_state = EATING;
 	print_philo_state(philo, EATING, philo->print_mutex);
-	sleep_check(philo->e_time, 1, philo->died);
+	sleep_check(philo->e_time, 10, philo->died);
 	if(!death_check(philo) || *philo->died)
 		return (0);
 	philo->last_meal = get_time_ms();
@@ -42,7 +42,7 @@ int	philo_sleeping(t_philo *philo)
 		return (0);
 	philo->p_state = SLEEPING;
 	print_philo_state(philo, SLEEPING, philo->print_mutex);
-	sleep_check(philo->s_time, 1, philo->died);
+	sleep_check(philo->s_time, 10, philo->died);
 	return (!(*philo->died));
 }
 

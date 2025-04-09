@@ -3,13 +3,17 @@
 
 void	sleep_check(long total_ms, long interval, int *died)
 {
-	long	slept;
+	// interval = 1;
+	// long	slept;
+	(void)interval;
 
-	slept = 0;
-	while(slept < total_ms && *died == 0)
+	// slept = 0;
+	long start = get_time_ms();
+	while((get_time_ms() - start) < total_ms && *died == 0)
 	{
-		usleep(interval * 1000);
-		slept += interval;
+		// usleep(interval * 1000);
+		usleep(500);
+		// slept += interval;
 	}
 }
 
@@ -29,7 +33,7 @@ int	death_check(t_philo *philo)
 			printf("el filo esta muerto?%d\n", *philo->died);
 			return (0);
 		}
-	}	
+	}
 	return(1);
 }
 

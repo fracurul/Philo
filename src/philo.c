@@ -37,7 +37,7 @@ int	main(int ac, char **av)
 				i++;
 			}
 			break ;
-		}	
+		}
 		usleep (1000);
 	}
 	i = 0;
