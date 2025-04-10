@@ -36,12 +36,12 @@ void	release_forks(t_philo *philo)
 	pthread_mutex_unlock(&philo->forks[philo->r_fork - 1]);
 }
 
-void	*onephilo_routine(t_philo *philo)
+void	*single_routine(t_philo *philo)
 {
-	if(take_fork(philo))
-		return(NULL);
+	pthread_mutex_lock(&philo->forks[0]);
+	print_philo_state(philo, TAKEN_FORK, philo->print_mutex);
 	usleep(philo->d_time * 1000);
-	philo->p_state = DIED;
-	one_philo_state(philo, )
-
+	pthread_mutex_unlock(&philo->forks[0]);
+	print_philo_state(philo, DIED, philo->print_mutex);
+	return (NULL);
 }

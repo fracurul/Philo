@@ -65,6 +65,10 @@ void			*philo_routine(t_philo *philo);
 void			sleep_check(long total_ms, int *died);
 int				death_check(t_philo *philo);
 void			release_forks(t_philo *philo);
+void			*single_routine(t_philo *philo);
+
+//Utils4
+int				philo_finished(t_philo *philo, int n);
 
 //Performing
 int				taking_forks(t_philo *philo);

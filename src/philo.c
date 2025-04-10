@@ -11,13 +11,16 @@ int	main(int ac, char **av)
 	pthread_mutex_t	*print_mutex;
 	pthread_mutex_t	*forks;
 	t_philo			*philo;
-	t_data			*philo_data;
+	t_data			*data;
 
 	print_mutex = init_mutex();
 	forks = init_forks(ft_atoi(av[1]));
-	philo_data = init_data(ac, av);
-	philo = init_data_philo(philo_data, print_mutex, forks);
-	init_threads(philo, philo_data->number_of_philo);
+	data = init_data(ac, av);
+	philo = init_data_philo(data, print_mutex, forks);
+	if(data->number_of_philo == 1)
+		pthread_create(&philo[0].thread, NULL, (void *)single_routine, &philo[0]);
+	else
+		init_threads(philo, data->number_of_philo);
 	if(get_str_state(philo->p_state) == NULL)
 	{
 		printf("Philo state error");
@@ -29,9 +32,9 @@ int	main(int ac, char **av)
 	int i = 0;
 	while(1)
 	{
-		if(*philo[0].died == 1)
+		if(*philo[0].died == 1  || philo_finished(philo, data->number_of_philo))
 		{
-			while (i < philo_data->number_of_philo)
+			while (i < data->number_of_philo)
 			{
 				pthread_join(philo[i].thread, NULL);
 				i++;
@@ -41,7 +44,7 @@ int	main(int ac, char **av)
 		usleep (1000);
 	}
 	i = 0;
-	while (i < philo_data->number_of_philo)
+	while (i < data->number_of_philo)
 	{
 		pthread_mutex_destroy(&forks[i]);
 		i++;
@@ -49,5 +52,5 @@ int	main(int ac, char **av)
 	free(forks);
 	pthread_mutex_destroy(print_mutex);
 	free(philo);
-	free(philo_data);
+	free(data);
 }
