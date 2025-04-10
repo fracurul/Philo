@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <limits.h>
 
 
 typedef enum s_state
@@ -70,6 +71,17 @@ void			*single_routine(t_philo *philo);
 //Utils4
 int				philo_finished(t_philo *philo, int n);
 
+//Validations
+int				is_empty(const char *str);
+int				validate_num(const char *str);
+int				validate_nums(int ac, char **av);
+int				validate_philo_range(int n);
+
+
+//Validations2
+int				validate_args(int ac, char **av);
+int				validate_meals(int ac, char **av);
+
 //Performing
 int				taking_forks(t_philo *philo);
 int				philo_eating(t_philo *philo);
@@ -77,7 +89,7 @@ int				philo_sleeping(t_philo *philo);
 int				philo_thinking(t_philo *philo);
 
 //Forks
-pthread_mutex_t	*init_forks(int philos);
+//pthread_mutex_t	*init_forks(int philos);
 int				get_right_fork(int id);
 int				get_left_fork(int id, int total);
 void			free_forks(pthread_mutex_t *forks, int i);
@@ -87,7 +99,7 @@ pthread_mutex_t	*init_mutex(void);
 pthread_mutex_t	*init_forks(int philos);
 
 //Atoi
-int				validate_args(int ac, char **av);
+long			ft_atol(const char *str);
 int				ft_atoi(const char *str);
 
 #endif
