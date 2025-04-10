@@ -37,7 +37,7 @@ int	validate_nums(int ac, char **av)
 	{
 		if (!validate_num(av[i]))
 		{
-			printf("Error: arg %s is empty or not a number\n", av[i]);
+			printf("Error: arg %s is empty or not a valid number\n", av[i]);
 			return (0);
 		}
 		i++;

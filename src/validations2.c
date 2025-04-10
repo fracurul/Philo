@@ -19,19 +19,10 @@ int validate_meals(int ac, char **av)
 
 int	validate_args(int ac, char **av)
 {
-	int i;
 	int num;
 
-	i = 1;
-	while (i < ac)
-	{
-		if (!validate_nums(ac, av))
-		{
-			printf("Error: arg '%s' is not a valid positive number.\n", av[i]);
-			return (0);
-		}
-		i++;
-	}
+	if (!validate_nums(ac, av))
+		return (0);
 	num = ft_atoi(av[1]);
 	if (!validate_philo_range(num))
 		return (0);
