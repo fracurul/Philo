@@ -14,3 +14,15 @@ int	philo_finished(t_philo *philo, int n)
 	}
 	return (1);
 }
+
+void	destroy_threads(t_data *data, pthread_mutex_t *forks)
+{
+	int i;
+
+	i = 0;
+	while (i < data->number_of_philo)
+	{
+		pthread_mutex_destroy(&forks[i]);
+		i++;
+	}
+}

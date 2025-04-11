@@ -24,11 +24,11 @@ t_philo	*init_data_philo(t_data *p_data, pthread_mutex_t *print_mutex, pthread_m
 	int	i;
 	t_philo	*philo;
 
-	i = 0;
+	i = -1;
 	philo = (t_philo *)malloc(sizeof(t_philo) * p_data->number_of_philo);
 	if(!philo)
 		printf("An error occured alocating memory for the philos");
-	while(i < p_data->number_of_philo)
+	while(++i < p_data->number_of_philo)
 	{
 		philo[i].id = i + 1;
 		philo[i].d_time = p_data->time_to_die;
@@ -44,7 +44,6 @@ t_philo	*init_data_philo(t_data *p_data, pthread_mutex_t *print_mutex, pthread_m
 		philo[i].p_state = THINKING;
 		philo[i].forks = forks;
 		philo[i].print_mutex = print_mutex;
-		i++;
 	}
 	return (philo);
 }

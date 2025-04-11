@@ -70,6 +70,7 @@ void			*single_routine(t_philo *philo);
 
 //Utils4
 int				philo_finished(t_philo *philo, int n);
+void			destroy_threads(t_data *data, pthread_mutex_t *forks);
 
 //Validations
 int				is_empty(const char *str);

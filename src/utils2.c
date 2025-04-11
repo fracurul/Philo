@@ -39,7 +39,7 @@ void	init_threads(t_philo *philo, int n_philos)
 
 void	print_philo_state(t_philo *philo, t_state state, pthread_mutex_t *print_mutex)
 {
-	long timestamp;
+	long	timestamp;
 
 	pthread_mutex_lock(print_mutex);
 	if (!death_check(philo) || *philo->died)
