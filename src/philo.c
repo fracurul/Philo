@@ -5,7 +5,7 @@ int	main(int ac, char **av)
 {
 	if (ac <= 4 || ac > 6  || !validate_args(ac, av))
 	{
-		printf("Error bad input");
+		printf("Error bad input\n");
 		return (0);
 	}
 	pthread_mutex_t	*print_mutex;
@@ -23,11 +23,11 @@ int	main(int ac, char **av)
 		init_threads(philo, data->number_of_philo);
 	if(get_str_state(philo->p_state) == NULL)
 	{
-		printf("Philo state error");
+		printf("Philo state error\n");
 	}
 	if(philo == NULL)
 	{
-		printf("error at threads");
+		printf("error at threads\n");
 	}
 	int i = 0;
 	while(1)

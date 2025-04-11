@@ -13,17 +13,17 @@ void	sleep_check(long total_ms, int *died)
 int	death_check(t_philo *philo)
 {
 	long death_time;
+	long timestamp;
 
 	death_time = get_time_ms() - philo->last_meal;
+	timestamp = get_time_ms() - philo->start;
 	if(death_time >= philo->d_time)
 	{
 		if(*philo->died == 0)
 		{
 			*philo->died = 1;
 			print_philo_state(philo, DIED, philo->print_mutex);
-			printf("tiempo sin comer:%ld\n", get_time_ms() - philo->last_meal);
-			printf("tiempo de muerte: %ld\n", philo->d_time);
-			printf("el filo esta muerto?%d\n", *philo->died);
+			printf("%ld %d died\n", timestamp, philo->id);
 			return (0);
 		}
 	}
@@ -38,10 +38,15 @@ void	release_forks(t_philo *philo)
 
 void	*single_routine(t_philo *philo)
 {
+	long timestamp;
+
+	timestamp = get_time_ms() - philo->start;
 	pthread_mutex_lock(&philo->forks[0]);
-	print_philo_state(philo, TAKEN_FORK, philo->print_mutex);
+	printf("%ld %d has taken a fork\n", timestamp, philo->id);
 	usleep(philo->d_time * 1000);
 	pthread_mutex_unlock(&philo->forks[0]);
-	print_philo_state(philo, DIED, philo->print_mutex);
+	*philo->died = 1;
+	timestamp = get_time_ms() - philo->start;
+	printf("%ld %d died\n", timestamp, philo->id);
 	return (NULL);
 }

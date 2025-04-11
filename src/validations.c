@@ -13,7 +13,7 @@ int	validate_num(const char *str)
 	int i;
 
 	i = 0;
-	if (is_empty(str))
+	if (is_empty(str) || ft_atol(str) > INT_MAX || ft_atol(str) == 0)
 		return (0);
 	if (str[0] == '-' || str[0] == '+')
 		return (0);
@@ -54,4 +54,3 @@ int	validate_philo_range(int n)
 	}
 	return (1);
 }
-
