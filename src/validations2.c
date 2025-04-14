@@ -1,25 +1,33 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   validations2.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fracurul <fracurul@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/14 12:09:11 by fracurul          #+#    #+#             */
+/*   Updated: 2025/04/14 12:13:58 by fracurul         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../philo.h"
 
-int validate_meals(int ac, char **av)
+int	validate_meals(int ac, char **av)
 {
-	long meals;
+	long	meals;
 
-	if(ac == 6)
+	if (ac == 6)
 	{
 		meals = ft_atol(av[5]);
-		if(meals <= 0 || meals > INT_MAX)
-		{
-			printf("Error: nº of meals must be positive and at most INT_MAX.\n");
+		if (meals <= 0 || meals > INT_MAX)
 			return (0);
-		}
 	}
 	return (1);
 }
 
 int	validate_args(int ac, char **av)
 {
-	int num;
+	int	num;
 
 	if (!validate_nums(ac, av))
 		return (0);

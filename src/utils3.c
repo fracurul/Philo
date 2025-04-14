@@ -1,10 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils3.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fracurul <fracurul@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/14 12:05:59 by fracurul          #+#    #+#             */
+/*   Updated: 2025/04/14 12:07:07 by fracurul         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../philo.h"
 
 void	sleep_check(long total_ms, int *died)
 {
-	long start = get_time_ms();
-	while((get_time_ms() - start) < total_ms && *died == 0)
+	long	start;
+
+	start = get_time_ms();
+	while ((get_time_ms() - start) < total_ms && *died == 0)
 	{
 		usleep(500);
 	}
@@ -12,14 +25,14 @@ void	sleep_check(long total_ms, int *died)
 
 int	death_check(t_philo *philo)
 {
-	long death_time;
-	long timestamp;
+	long	death_time;
+	long	timestamp;
 
 	death_time = get_time_ms() - philo->last_meal;
 	timestamp = get_time_ms() - philo->start;
-	if(death_time >= philo->d_time)
+	if (death_time >= philo->d_time)
 	{
-		if(*philo->died == 0)
+		if (*philo->died == 0)
 		{
 			*philo->died = 1;
 			print_philo_state(philo, DIED, philo->print_mutex);
@@ -27,7 +40,7 @@ int	death_check(t_philo *philo)
 			return (0);
 		}
 	}
-	return(1);
+	return (1);
 }
 
 void	release_forks(t_philo *philo)
@@ -38,7 +51,7 @@ void	release_forks(t_philo *philo)
 
 void	*single_routine(t_philo *philo)
 {
-	long timestamp;
+	long	timestamp;
 
 	timestamp = get_time_ms() - philo->start;
 	pthread_mutex_lock(&philo->forks[0]);

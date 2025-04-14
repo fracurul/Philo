@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fracurul <fracurul@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/14 11:53:03 by fracurul          #+#    #+#             */
+/*   Updated: 2025/04/14 11:55:10 by fracurul         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../philo.h"
 
@@ -6,7 +17,6 @@ t_data	*init_data(int ac, char **av)
 	t_data	*p_data;
 
 	p_data = malloc(sizeof(t_data));
-
 	p_data->number_of_philo = ft_atoi(av[1]);
 	p_data->time_to_die = ft_atoi(av[2]);
 	p_data->time_to_eat = ft_atoi(av[3]);
@@ -14,21 +24,22 @@ t_data	*init_data(int ac, char **av)
 	p_data->meals = __INT_MAX__;
 	p_data->died = 0;
 	p_data->start = get_time_ms();
-	if(ac == 6)
+	if (ac == 6)
 		p_data->meals = ft_atoi(av[5]);
 	return (p_data);
 }
 
-t_philo	*init_data_philo(t_data *p_data, pthread_mutex_t *print_mutex, pthread_mutex_t *forks)
+t_philo	*init_data_philo(t_data *p_data, pthread_mutex_t *print_mutex,
+	pthread_mutex_t *forks)
 {
-	int	i;
+	int		i;
 	t_philo	*philo;
 
 	i = -1;
 	philo = (t_philo *)malloc(sizeof(t_philo) * p_data->number_of_philo);
-	if(!philo)
+	if (!philo)
 		printf("An error occured alocating memory for the philos");
-	while(++i < p_data->number_of_philo)
+	while (++i < p_data->number_of_philo)
 	{
 		philo[i].id = i + 1;
 		philo[i].d_time = p_data->time_to_die;
@@ -51,8 +62,8 @@ t_philo	*init_data_philo(t_data *p_data, pthread_mutex_t *print_mutex, pthread_m
 long	get_time_ms(void)
 {
 	struct timeval	time;
-	long	val;
-	long	time_ms;
+	long			val;
+	long			time_ms;
 
 	val = 1000;
 	gettimeofday(&time, NULL);
@@ -62,15 +73,15 @@ long	get_time_ms(void)
 
 char	*get_str_state(t_state state)
 {
-	if(state == TAKEN_FORK)
+	if (state == TAKEN_FORK)
 		return ("has taken a fork");
-	else if(state == EATING)
+	else if (state == EATING)
 		return ("is eating");
-	else if(state == SLEEPING)
+	else if (state == SLEEPING)
 		return ("is sleeping");
-	else if(state == THINKING)
+	else if (state == THINKING)
 		return ("is thinking");
-	else if(state == DIED)
+	else if (state == DIED)
 		return ("died");
 	else
 		return ("NULL");
